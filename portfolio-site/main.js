@@ -44,3 +44,25 @@ async function renderGrid(){
     });
   }));
 }
+
+// 프로젝트 상세 렌더링
+async function renderProject(){
+  const wrap = document.getElementById('project-detail');
+  if(!wrap) return;
+  const slug = getParam('slug');
+  const items = await loadProjects();
+  const p = items.find(x=>x.slug===slug);
+  if(!p){ wrap.innerHTML = '<p style="opacity:.7">프로젝트를 찾을 수 없습니다.</p>'; return; }
+  wrap.innerHTML = `
+    ${p.cover ? `<img class="project-hero" src="${p.cover}" alt="${p.title}">` : ''}
+    <h1 class="project-title">${p.title}</h1>
+    <p class="project-desc">${p.description || ''}</p>
+    ${Array.isArray(p.gallery) && p.gallery.length ? `
+      <div class="gallery">
+        ${p.gallery.map(src=>`<img src="${src}" alt="${p.title}">`).join('')}
+      </div>` : ''}
+  `;
+}
+
+renderGrid();
+renderProject();
