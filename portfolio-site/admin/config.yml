@@ -1,0 +1,26 @@
+backend:
+  name: git-gateway
+  branch: main   # 저장소 기본 브랜치명 (master면 master)
+
+media_folder: "images/uploads"      # 실제 저장 경로(저장소 내부)
+public_folder: "/images/uploads"    # 웹에서 접근 경로
+
+# 단일 JSON 파일을 편집하는 방식 (빌드 없이 바로 반영 가능)
+collections:
+  - name: "site"
+    label: "Site Content"
+    files:
+      - file: "data/projects.json"
+        name: "projects"
+        label: "Projects"
+        fields:
+          - { label: "Projects", name: "items", widget: "list", summary: "{{fields.title}} ({{fields.category}})", fields:
+              [
+                { label: "Title", name: "title", widget: "string" },
+                { label: "Slug", name: "slug", widget: "string" },
+                { label: "Category", name: "category", widget: "select", options: ["branding", "print", "digital"] },
+                { label: "Cover", name: "cover", widget: "image" },
+                { label: "Description", name: "description", widget: "text" },
+                { label: "Gallery", name: "gallery", widget: "list", field: { label: "Image", name: "image", widget: "image" } }
+              ]
+            }
