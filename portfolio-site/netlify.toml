@@ -1,8 +1,0 @@
-[build]
-  publish = "."   # 루트 폴더를 정적 사이트로 배포
-  # command = ""   # 빌드 없음 (정적 파일)
-
-[[headers]]
-  for = "/data/*"
-  [headers.values]
-    Cache-Control = "no-cache"
